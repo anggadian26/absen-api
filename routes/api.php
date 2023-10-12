@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PresensiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('save-presensi', [PresensiController::class, 'savePresensi']);
+});
