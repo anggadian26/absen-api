@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PresensiController;
 use Illuminate\Http\Request;
@@ -20,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register']);
+//API route for login user
+Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
