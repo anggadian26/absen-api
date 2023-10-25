@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IjinController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\SakitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,10 +27,17 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    // presensi
     Route::post('save-presensi', [PresensiController::class, 'savePresensi']);
     Route::get('/get-presensi', [PresensiController::class, 'getPresensi']);
     
+    // pengumuman
     Route::get('/get-pengumuman', [PengumumanController::class, 'getPengumuman']);
 
+    // ijin
     Route::post('/ijin-store', [IjinController::class, 'create']);
+    Route::get('/get-ijin', [IjinController::class, 'getIjin']);
+
+    // sakit
+    Route::post('/sakit-store', [SakitController::class, 'create']);
 });

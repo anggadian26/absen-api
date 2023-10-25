@@ -36,4 +36,21 @@ class IjinController extends Controller
             'message'   => 'Sukses untuk menambahkan Data Ijin'
         ]);
     }
+
+    public function getIjin() {
+        $ijin = IjinModel::where('user_id', Auth::user()->id)->orderBy('date_from', 'desc')->get();
+
+        foreach ($ijin as $item) {
+            $item->date_from = date('d/m/Y', strtotime($item->date_from));
+            $item->date_to = date('d/m/Y', strtotime($item->date_to));
+            $item->time_from = date('H:i', strtotime($item->time_from));
+            $item->time_to = date('H:i', strtotime($item->time_to));
+        }
+
+        return response()->json([
+            'success'   => true,
+            'data'      => $ijin,
+            'message'   => 'Sukses untuk menampilkan Data Ijin'
+        ]);
+    }
 }
