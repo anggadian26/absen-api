@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    
+    <link href="app.png" rel="icon" type="app/png">
 
     <!-- Styles -->
     <style>
@@ -17,7 +17,7 @@
     body {
         background-color: #6f42c1;
         color: #fff;
-        font-family: 'Calibri', sans-serif;
+        font-family: 'comic sans', sans-serif;
         font-weight: 200;
         height: 100vh;
         margin: 0;
@@ -92,6 +92,8 @@
             <div class="title m-b-md">
                 Absensi | RPL
             </div>
+
+            
 
            
         </div>
