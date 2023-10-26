@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Presensi extends Model
+class SakiModel extends Model
 {
     use HasFactory;
-
-    protected $table = 'presensis';
+    protected $table = 'sakit';
 
     /**
      * The attributes that are mass assignable.
@@ -18,12 +17,9 @@ class Presensi extends Model
      */
     protected $fillable = [
         'id',
-        'user_id',
-        'latitude',
-        'longitude',
         'tanggal',
-        'masuk',
-        'pulang',
+        'keterangan',
+        'user_id',
         'created_at'
     ];
 }
