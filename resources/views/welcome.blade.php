@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Presensi | RPL</title>
+    <title>Presensi </title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -17,7 +17,7 @@
     body {
         background-color: #6f42c1;
         color: #fff;
-        font-family: 'comic sans', sans-serif;
+        font-family: ' Edelle II', sans-serif;
         font-weight: 200;
         height: 100vh;
         margin: 0;
@@ -90,7 +90,7 @@
 
         <div class="content">
             <div class="title m-b-md">
-                Presensi
+                Presensi 
             </div>
 
             
@@ -98,7 +98,9 @@
            
         </div>
     </div>
-    
+    <div style="text-align: center;">
+        &copy; Copyright <strong><span>RPL Team</span></strong>
+    </div>
 </body>
 
 </html>

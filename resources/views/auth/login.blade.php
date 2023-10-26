@@ -57,7 +57,7 @@
                                     <div class="row mb-0">
                                         <div class="col-md-8 offset-md-4">
                                             <button type="submit" class="btn btn-primary btn-user btn-block">
-                                                {{ __('Login') }}
+                                                {{ __('Login Akun') }}
                                             </button>
                                             @if (Route::has('password.request'))
                                             @endif
@@ -74,12 +74,7 @@
 </div>
 
 <style>
-  .bg-login-image {
-    position: relative;
-    overflow: hidden;
-    border-right: 1px solid purple; /* Ganti warna garis menjadi ungu */
-    padding-right: 15px; /* Sesuaikan dengan lebar garis */
-}
+  
 
 
     .login-image {
@@ -102,6 +97,20 @@
     background-color: #563d7c; /* Ganti warna latar belakang tombol hover menjadi ungu tua */
     border-color: #563d7c; /* Ganti warna border tombol hover menjadi ungu tua */
     color: #fff; /* Tetapkan warna teks tombol hover menjadi putih */
+}
+
+.card-body {
+    border: none; /* Menghilangkan border dalam card-body */
+    box-shadow: 0 4px 8px rgba(111, 66, 193, 0.2); /* Mengubah bayangan card-body menjadi ungu */
+}
+
+.form-control {
+    border: none; /* Menghilangkan border pada input */
+    box-shadow: 0 6px 12px rgba(111, 66, 193, 0.3), 0 0 0 2px rgba(111, 66, 193, 0.2); /* Mengubah bayangan input menjadi ungu dan membuatnya lebih tebal */
+}
+
+.invalid-feedback {
+    color: #6f42c1; /* Mengubah warna teks feedback menjadi ungu */
 }
 
 
