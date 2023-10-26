@@ -29,4 +29,19 @@ class SakitController extends Controller
             'message'   => 'Sukses untuk menambahkan Data Sakit'
         ]);
     }
+
+
+    public function getSakit() {
+        $sakit = SakiModel::where('user_id', Auth::user()->id)->orderBy('tanggal', 'desc')->get();
+
+        foreach($sakit as $item){
+            $item->tanggal = date('d/m/Y', strtotime($item->tanggal));
+        }
+        
+        return response()->json([
+            'success'   => true,
+            'data'      => $sakit,
+            'message'   => 'Sukses untuk menampilkan Data Sakit'
+        ]);
+    }
 }

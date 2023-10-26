@@ -27,6 +27,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    // user
+    Route::get('/get-user', [AuthController::class, 'getUser']);
+    Route::post('/log-out', [AuthController::class, 'logOut']);
+
     // presensi
     Route::post('save-presensi', [PresensiController::class, 'savePresensi']);
     Route::get('/get-presensi', [PresensiController::class, 'getPresensi']);
@@ -40,4 +44,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // sakit
     Route::post('/sakit-store', [SakitController::class, 'create']);
+    Route::get('/get-sakit', [SakitController::class, 'getSakit']);
 });
