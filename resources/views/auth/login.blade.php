@@ -7,7 +7,7 @@
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image" >
+                        <div class="col-lg-6 bg-login-image">
                             <img src="{{asset('asset/images/presensi.png')}}" alt="" class="login-image">
                         </div>
                         <div class="col-lg-6">
@@ -15,8 +15,6 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">{{ __('LOGIN') }}</h1>
                                 </div>
-
-            
 
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
@@ -74,4 +72,19 @@
         </div>
     </div>
 </div>
+
+<style>
+    .bg-login-image {
+        position: relative;
+        overflow: hidden;
+        border-right: 1px solid #ccc; /* Garis antara gambar dan formulir */
+        padding-right: 15px; /* Sesuaikan dengan lebar garis */
+    }
+
+    .login-image {
+        width: 100%;
+        height: auto;
+    }
+</style>
+
 @endsection
