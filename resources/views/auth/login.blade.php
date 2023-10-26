@@ -74,17 +74,37 @@
 </div>
 
 <style>
-    .bg-login-image {
-        position: relative;
-        overflow: hidden;
-        border-right: 1px solid #ccc; /* Garis antara gambar dan formulir */
-        padding-right: 15px; /* Sesuaikan dengan lebar garis */
-    }
+  .bg-login-image {
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid purple; /* Ganti warna garis menjadi ungu */
+    padding-right: 15px; /* Sesuaikan dengan lebar garis */
+}
+
 
     .login-image {
         width: 100%;
         height: auto;
     }
+
+    .h4 {
+    color: #6f42c1;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #6f42c1; /* Ganti warna latar belakang tombol menjadi ungu */
+    border-color: #6f42c1; /* Ganti warna border tombol menjadi ungu */
+    color: #fff; /* Ganti warna teks tombol menjadi putih */
+}
+
+.btn-primary:hover {
+    background-color: #563d7c; /* Ganti warna latar belakang tombol hover menjadi ungu tua */
+    border-color: #563d7c; /* Ganti warna border tombol hover menjadi ungu tua */
+    color: #fff; /* Tetapkan warna teks tombol hover menjadi putih */
+}
+
+
 </style>
 
 @endsection
