@@ -19,3 +19,6 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [Controller::class, 'loginShow'])->name('login');
+Route::post('/login-action', [Controller::class, 'loginAction'])->name('login-action');
+
+
