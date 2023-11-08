@@ -11,7 +11,7 @@
 
         <li class="nav-heading">Pages</li>
         <li class="nav-item">
-            <a class="nav-link @if (request()->routeIs('data.pegawai')) active @else collapsed @endif"
+            <a class="nav-link @if (request()->routeIs('data.pegawai', 'view.add')) active @else collapsed @endif"
                 href="{{ route('data.pegawai') }}">
                 <i class="bi bi-grid"></i>
                 <span>Data Pegawai</span>

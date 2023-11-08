@@ -26,3 +26,6 @@ Route::post('/login-action', [Controller::class, 'loginAction'])->name('login-ac
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
 Route::get('/data-pegawai', [UserController::class, 'index'])->name('data.pegawai');
+Route::get('/delete-user/{id}', [UserController::class, 'delete_data'] )->name('delete.user');
+Route::get('/tambah-pegawai', [UserController::class, 'add_view'])->name('view.add');
+Route::post('/add-pegawai', [UserController::class, 'add_action'])->name('add.action');
