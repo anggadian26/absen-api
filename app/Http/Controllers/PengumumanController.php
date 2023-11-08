@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PengumumanModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,5 +34,39 @@ class PengumumanController extends Controller
             'data' => $pengumuman,
             'message' => 'Sukses menampilkan data pengumuman'
         ]);
+
+        
+    }
+
+    // WEB
+    public function index() {
+        $query = "
+            SELECT *
+            FROM pengumuman
+        ";
+
+        $data = DB::select($query);
+        return view('pages.pengumuman.index', compact(['data']));
+    }
+
+    public function add_view() {
+        return view('pages.pengumuman.add');
+    }
+
+    public function delete_pengumuman($id) {
+        DB::table('pengumuman')->where('id', '=', $id)->delete();
+        return redirect('/pengumuman');
+    }
+
+    public function add_data(Request $request) {
+        $data = [
+            'judul' => $request->judul,
+            'konten'    => $request->konten,
+            'tanggal_upload'    => $request->tanggal_upload,
+            'tanggal_delete'    => $request->tanggal_delete
+        ];
+
+        PengumumanModel::create($data);
+        return redirect('/pengumuman');
     }
 }

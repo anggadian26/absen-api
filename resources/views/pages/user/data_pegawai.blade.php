@@ -30,7 +30,7 @@
                     <td>{{ $x->email }}</td>
                     <td>{{ $x->role }}</td>
                     <td>
-                        <a onsubmit="return confirm('Hapus Data Pegawai ?')" href="{{ route('delete.user', ['id' => $x->id]) }}" class="btn btn-danger">Hapus</a>
+                        <a href="{{ route('delete.user', ['id' => $x->id]) }}" class="btn btn-danger">Hapus</a>
                     </td>   
             </tr>
             @endforeach  

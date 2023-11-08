@@ -6,6 +6,7 @@ use App\Models\PresensiModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 date_default_timezone_set("Asia/Jakarta");
 
@@ -79,6 +80,52 @@ class PresensiController extends Controller
             'data' => $presensi,
             'message' => 'Sukses menampilkan data'
         ]);
+    }
+
+    // WEB
+    public function index() {
+        // $presensi = PresensiModel::orderBy('tanggal', 'desc')->get();
+
+        $query = "
+            SELECT A.*, B.name
+            FROM presensi A
+            INNER JOIN users B ON A.user_id = B.id
+            ORDER BY A.tanggal DESC
+        ";
+
+        $presensi = DB::select($query);
+
+
+        foreach ($presensi as $item) {
+            if ($item->tanggal == date('Y-m-d')) {
+                $item->is_hari_ini = true;
+            } else {
+                $item->is_hari_ini = false;
+            }
+
+            $datetime = Carbon::parse($item->tanggal)->locale('id');
+            $masuk = Carbon::parse($item->masuk)->locale('id');
+
+            // Cek apakah pulang null atau tidak
+            if ($item->pulang !== null) {
+                $pulang = Carbon::parse($item->pulang)->locale('id');
+                $pulang->settings(['formatFunction' => 'translatedFormat']);
+                $item->pulang = $pulang->format('H:i');
+            } else {
+                // Jika pulang null, set nilai pulang menjadi null
+                $item->pulang = null;
+            }
+
+            $datetime->settings(['formatFunction' => 'translatedFormat']);
+            $masuk->settings(['formatFunction' => 'translatedFormat']);
+            $item->tanggal = $datetime->format('l, j F Y');
+            $item->masuk = $masuk->format('H:i');
+        }
+
+        
+
+       
+        return view('pages.presensi.index', compact(['presensi']));
     }
 
 }
