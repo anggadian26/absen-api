@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,4 @@ Route::get('/', function () {
 Route::get('/login', [Controller::class, 'loginShow'])->name('login');
 Route::post('/login-action', [Controller::class, 'loginAction'])->name('login-action');
 
-
+Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');

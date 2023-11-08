@@ -55,24 +55,12 @@
             @endif
         @else
             <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }}
-                </a>
+                
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url('user') }}">Daftar User</a>
+                  
 
-                    <a class="dropdown-item" href="{{ url('home') }}">Dashboard</a>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                    
                 </div>
             </li>
         @endguest
@@ -88,7 +76,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6 bg-login-image">
-                                <img src="{{asset('asset/images/presensi.png')}}" alt="" class="login-image">
+                                <img src="{{asset('img/presensi.png')}}" alt="" class="login-image">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">

@@ -29,7 +29,7 @@ class Controller extends BaseController
             $user = Auth::user();
 
             if ($user->role === 'Admin') {
-                return redirect()->intended('/admin-dashboard');
+                return redirect()->intended('/dashboard');
             } else {
                 return redirect()->intended('/');
             }
