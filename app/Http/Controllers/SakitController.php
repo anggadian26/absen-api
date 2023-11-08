@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SakiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SakitController extends Controller
 {
@@ -43,5 +44,19 @@ class SakitController extends Controller
             'data'      => $sakit,
             'message'   => 'Sukses untuk menampilkan Data Sakit'
         ]);
+    }
+
+    // WEB
+    public function index() {
+        $queri = " 
+            SELECT A.*, B.name
+            FROM sakit A
+            INNER JOIN users B ON A.user_id = B.id
+            ORDER BY A.tanggal DESC 
+        ";
+
+        $data = DB::select($queri);
+
+        return view('pages.sakit.index', compact(['data']));
     }
 }

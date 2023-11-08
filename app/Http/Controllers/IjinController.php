@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\IjinModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class IjinController extends Controller
 {
@@ -52,5 +53,18 @@ class IjinController extends Controller
             'data'      => $ijin,
             'message'   => 'Sukses untuk menampilkan Data Ijin'
         ]);
+    }
+
+    // WEB
+    public function index() {
+        $query = "
+            SELECT A.*, B.name
+            FROM ijin A
+            INNER JOIN users B ON A.user_id = B.id
+            ORDER BY A.date_from DESC
+        ";
+
+        $data = DB::select($query);
+        return view('pages.ijin.index', compact(['data']));
     }
 }
