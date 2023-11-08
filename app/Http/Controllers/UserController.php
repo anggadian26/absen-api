@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -38,7 +39,7 @@ class UserController extends Controller
             'username'  => $request->username,
             'email'     => $request->email,
             'role'      => 'Pegawai',
-            'password'  => $request->password
+            'password'  => Hash::make($request->password)
         ];
         // dd($data);
 
