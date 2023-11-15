@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
+
         DB::table('users')->insert([
             'name' => 'Jhon Forbes',
             'username' => 'jhonforbes',
@@ -46,5 +47,6 @@ class DatabaseSeeder extends Seeder
             'role'  => 'Pegawai',
             'password' => Hash::make('password'),
         ]);
+
     }
 }
