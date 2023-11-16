@@ -44,3 +44,5 @@ Route::get('/data-ijin', [IjinController::class, 'index'])->name('ijin');
 Route::get('/data-sakit', [SakitController::class, 'index'])->name('sakit');
 
 Route::get('/data-presensi', [PresensiController::class, 'index'])->name('presensi');
+
+
