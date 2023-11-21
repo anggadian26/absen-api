@@ -11,6 +11,7 @@
             <th scope="col">Tanggal</th>
             <th scope="col">Jam Masuk</th>
             <th scope="col">Jam Pulang</th>
+            <th scope="col">Longitude - Latitude</th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
                 <td>{{ $x->tanggal }}</td>
                 <td>{{ $x->masuk }}</td>
                 <td>{{ $x->pulang }}</td>
+                <td>{{ $x->longitude }} - {{ $x->latitude }}</td>
             </tr>
         @endforeach
     </tbody>
