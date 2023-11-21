@@ -39,4 +39,9 @@ class Controller extends BaseController
             'email' => 'Kombinasi username dan password tidak cocok.',
         ])->onlyInput('email');
     }
+
+    public function logOut() {
+        Auth::logout();
+        return redirect()->route('login');
+    }
 }
