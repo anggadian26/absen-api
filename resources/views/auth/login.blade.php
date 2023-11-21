@@ -55,12 +55,12 @@
             @endif
         @else
             <li class="nav-item dropdown">
-                
+
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  
 
-                    
+
+
                 </div>
             </li>
         @endguest
@@ -121,15 +121,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6 offset-md-4">
-                                        <div class="form-check">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="row mb-0">
                                     <div class="col-md-8 offset-md-4">
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
