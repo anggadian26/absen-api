@@ -13,14 +13,6 @@
         </tr>
     </thead>
     <tbody>
-        <div style="position: relative; top: -30px; text-align: right;">
-            <form action="{{ route('sakit') }}" method="GET">
-                <input type="text" name="query" placeholder="Temukan...">
-                <button type="submit">Cari</button>
-            </form>
-        </div>
-
-
 
         @php
             $i = 1

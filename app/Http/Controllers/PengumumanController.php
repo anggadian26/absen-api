@@ -35,7 +35,7 @@ class PengumumanController extends Controller
             'message' => 'Sukses menampilkan data pengumuman'
         ]);
 
-        
+
     }
 
     // WEB
@@ -68,5 +68,16 @@ class PengumumanController extends Controller
 
         PengumumanModel::create($data);
         return redirect('/pengumuman');
+    }
+
+    public function search(Request $request){
+
+        if($request->has('search')){
+
+            $data = PengumumanModel::where('nama','LIKE','%' .$request->search.'%')->paginate(5);
+
+        }else{
+            $data = PengumumanModel::paginate(5);
+        }
     }
 }
