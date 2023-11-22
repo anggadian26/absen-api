@@ -39,8 +39,10 @@ Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumu
 Route::get('/add-pengumuman', [PengumumanController::class, 'add_view'])->name('add.pengumuman');
 Route::get('/delete_pengumuman/{id}', [PengumumanController::class, 'delete_pengumuman'])->name('delete.pengumuman');
 Route::post('/add-pengumuman-aksi', [PengumumanController::class, 'add_data'])->name('add_pengumuman');
+Route::get('/pengumuman-riwayat', [PengumumanController::class, 'riwayatget'])->name('riwayatget');
 
 Route::get('/data-ijin', [IjinController::class, 'index'])->name('ijin');
+Route::get('action-ijin/{id}/{flg}', [IjinController::class, 'action'])->name('action');
 
 Route::get('/data-sakit', [SakitController::class, 'index'])->name('sakit');
 

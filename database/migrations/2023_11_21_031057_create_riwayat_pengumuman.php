@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ijin', function (Blueprint $table) {
+        Schema::create('riwayat_pengumuman', function (Blueprint $table) {
             $table->id();
-            $table->date('date_from');
-            $table->time('time_from');
-            $table->date('date_to');
-            $table->time('time_to');
-            $table->text('keterangan');
-            $table->integer('user_id');
-            $table->enum('flg', ['P', 'A', 'R']);   // P = Pending; A = Approved; R = Rejected
+            $table->string('judul');
+            $table->date('tanggal_upload');
+            $table->date('tanggal_delete');
+            $table->text('konten');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ijin');
+        Schema::dropIfExists('riwayat_pengumuman');
     }
 };

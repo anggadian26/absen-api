@@ -19,15 +19,10 @@
             </div>
         </div>
         <div class="row mb-3">
-            <label for="inputEmail" class="col-sm-2 col-form-label">Tanggal Upload</label>
-            <div class="col-sm-5">
-                <input type="date" class="form-control" name="tanggal_upload">
-            </div>
-        </div>
-        <div class="row mb-3">
             <label for="inputEmail" class="col-sm-2 col-form-label">Tanggal Hapus</label>
             <div class="col-sm-5">
                 <input type="date" class="form-control" name="tanggal_delete">
+                <p class="" style="font-size: 12px; margin-left: 5px">pengumuman dihapus otomotis susuai dengan isi tanggal hapus</p>
             </div>
         </div>
         <div class="row mb-5">

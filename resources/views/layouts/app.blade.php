@@ -19,9 +19,9 @@
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}assets/" rel="stylesheet">
-  <link href="{{ asset('vendor/boxicons/css/boxicons.min.css') }}assets/" rel="stylesheet">
-  <link href="{{ asset('vendor/quill/quill.snow.css') }}assets/" rel="stylesheet">
+  <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/quill/quill.snow.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/quill/quill.bubble.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/remixicon/remixicon.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/simple-datatables/style.css') }}" rel="stylesheet">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\IjinModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -56,15 +57,47 @@ class IjinController extends Controller
     }
 
     // WEB
-    public function index() {
+    public function index( Request $request ) {
+        $date_from = $request->date_from;
+        $flg = $request->flg;
+        $user_id = $request->user_id;
+
         $query = "
             SELECT A.*, B.name
             FROM ijin A
             INNER JOIN users B ON A.user_id = B.id
-            ORDER BY A.date_from DESC
+            WHERE TRUE
         ";
 
+        if($date_from != NULL) {
+            $query .= " AND A.date_from = '$date_from'";
+        }
+
+        if($flg != NULL) {
+            $query .= " AND A.flg = '$flg'";
+        }
+
+        if($user_id != NULL) {
+            $query .= " AND A.user_id = $user_id";
+        }
+
+        $query .= " ORDER BY A.date_from DESC";
+
         $data = DB::select($query);
-        return view('pages.ijin.index', compact(['data']));
+
+        $user = User::all();
+        return view('pages.ijin.index', compact(['data', 'user']));
+    }
+
+    public function action($id, $flg) {
+        $ijin = IjinModel::find($id);
+        if($ijin) {
+            IjinModel::where('id', $id)->update([
+                'flg' => $flg
+            ]);
+            return redirect()->route('ijin');
+        } else {
+            return redirect()->route('ijin');
+        }
     }
 }
