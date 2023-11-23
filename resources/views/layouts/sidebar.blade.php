@@ -20,10 +20,10 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link  @if (request()->routeIs('presensi')) active @else collapsed @endif" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link  @if (request()->routeIs('presensi', 'report')) active @else collapsed @endif" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-grid"></i><span>Presensi</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content collapse @if (request()->routeIs('presensi')) show @else active @endif" data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content collapse @if (request()->routeIs('presensi', 'report')) show @else active @endif" data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="nav-link @if (request()->routeIs('presensi')) active @else collapsed @endif"
                         href="{{ route('presensi') }}">
@@ -32,8 +32,8 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link "
-                        href="#">
+                    <a class="nav-link @if (request()->routeIs('report')) active @else collapsed @endif"
+                        href="{{ route('report') }}">
                         <i class="bi bi-grid"></i>
                         <span>Report Presensi</span>
                     </a>

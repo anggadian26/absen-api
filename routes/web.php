@@ -53,4 +53,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/data-presensi', [PresensiController::class, 'index'])->name('presensi');
     Route::get('/report-presensi', [ReportPresensiController::class, 'index'])->name('report');
 
+    Route::get('download-report', [ReportPresensiController::class, 'downloadReport'])->name('download');
+
 });
