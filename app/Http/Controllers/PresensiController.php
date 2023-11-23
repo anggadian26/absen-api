@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PresensiModel;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -83,19 +84,34 @@ class PresensiController extends Controller
     }
 
     // WEB
-    public function index() {
-        // $presensi = PresensiModel::orderBy('tanggal', 'desc')->get();
+    public function index(Request $request)
+    {
+        $user_id = $request->user_id;
+        $bulanTahun = $request->bulan_tahun;
+        $tanggal = $request->tanggal;
 
         $query = "
             SELECT A.*, B.name
             FROM presensi A
             INNER JOIN users B ON A.user_id = B.id
-            ORDER BY A.tanggal DESC
+            WHERE TRUE
         ";
+
+        if ($user_id != NULL) {
+            $query .= " AND A.user_id = $user_id";
+        }
+
+        if ($tanggal != NULL) {
+            $query .= " AND A.tanggal = '$tanggal'";
+        } else if ($bulanTahun != NULL) {
+            list($tahun, $bulan) = explode('-', $bulanTahun);
+            $query .= " AND YEAR(A.tanggal) = $tahun AND MONTH(A.tanggal) = $bulan";
+        }
+        $query .= " ORDER BY A.tanggal DESC";
 
         $presensi = DB::select($query);
 
-
+        $user = User::all();
         foreach ($presensi as $item) {
             if ($item->tanggal == date('Y-m-d')) {
                 $item->is_hari_ini = true;
@@ -122,10 +138,6 @@ class PresensiController extends Controller
             $item->masuk = $masuk->format('H:i');
         }
 
-        
-
-       
-        return view('pages.presensi.index', compact(['presensi']));
+        return view('pages.presensi.index', compact(['presensi', 'user']));
     }
-
 }

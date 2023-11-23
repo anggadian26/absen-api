@@ -1,7 +1,35 @@
 @extends('layouts.app')
 @section('content')
 <h5 class="card-title">Data Sakit</h5>
-
+<div class="mb-5 ">
+    <form class="row g-3 align-items-end" action="{{ route('sakit') }}" method="get">
+        @csrf
+        <div class="col-md-2">
+            <label for="inputName5" class="form-label">Tanggal</label>
+            <input type="date" class="form-control" name="tanggal"
+                value="{{ isset($_GET['tanggal']) ? $_GET['tanggal'] : '' }}">
+        </div>
+        <div class="col-md-2">
+            <label for="inputName5" class="form-label">Bulan</label>
+            <input type="month" class="form-control" name="bulan_tahun"
+                value="{{ isset($_GET['bulan_tahun']) ? $_GET['bulan_tahun'] : '' }}">
+        </div>
+        <div class="col-md-2">
+            <label for="inputName5" class="form-label">Pegawai</label>
+            <select name="user_id" class="form-select">
+                <option value="">- All -</option>
+                @foreach ($user as $o)
+                    <option value="{{ $o->id }}"
+                        {{ isset($_GET['user_id']) && (int) $_GET['user_id'] === $o->id ? 'selected' : '' }}>
+                        {{ $o->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Cari</button>
+        </div>
+    </form>
+</div>
 <!-- Table with stripped rows -->
 <table class="table">
     <thead>
@@ -13,15 +41,6 @@
         </tr>
     </thead>
     <tbody>
-        <div style="position: relative; top: -30px; text-align: right;">
-            <form action="{{ route('sakit') }}" method="GET">
-                <input type="text" name="query" placeholder="Temukan...">
-                <button type="submit">Cari</button>
-            </form>
-        </div>
-
-
-
         @php
             $i = 1
         @endphp

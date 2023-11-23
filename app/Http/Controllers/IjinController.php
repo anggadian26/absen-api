@@ -61,6 +61,7 @@ class IjinController extends Controller
         $date_from = $request->date_from;
         $flg = $request->flg;
         $user_id = $request->user_id;
+        $bulanTahun = $request->bulan_tahun;
 
         $query = "
             SELECT A.*, B.name
@@ -71,6 +72,9 @@ class IjinController extends Controller
 
         if($date_from != NULL) {
             $query .= " AND A.date_from = '$date_from'";
+        } else if( $bulanTahun != NULL) {
+            list($tahun, $bulan) = explode('-', $bulanTahun);
+            $query .= " AND YEAR(A.date_from) = $tahun AND MONTH(A.date_from) = $bulan";
         }
 
         if($flg != NULL) {

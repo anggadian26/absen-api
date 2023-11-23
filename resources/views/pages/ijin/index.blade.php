@@ -11,6 +11,11 @@
                     value="{{ isset($_GET['date_from']) ? $_GET['date_from'] : '' }}">
             </div>
             <div class="col-md-2">
+                <label for="inputName5" class="form-label">Bulan</label>
+                <input type="month" class="form-control" name="bulan_tahun"
+                    value="{{ isset($_GET['bulan_tahun']) ? $_GET['bulan_tahun'] : '' }}">
+            </div>
+            <div class="col-md-2">
                 <label for="inputName5" class="form-label">Status</label>
                 <select name="flg" class="form-select">
                     <option value="">- All -</option>
