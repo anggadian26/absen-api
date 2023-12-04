@@ -40,7 +40,7 @@ class IjinController extends Controller
     }
 
     public function getIjin() {
-        $ijin = IjinModel::where('user_id', Auth::user()->id)->orderBy('date_from', 'desc')->get();
+        $ijin = IjinModel::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
 
         foreach ($ijin as $item) {
             $item->date_from = date('d/m/Y', strtotime($item->date_from));

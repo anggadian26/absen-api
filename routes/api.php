@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // presensi
     Route::post('save-presensi', [PresensiController::class, 'savePresensi']);
     Route::get('/get-presensi', [PresensiController::class, 'getPresensi']);
+    Route::get('/get-presensi-home', [PresensiController::class, 'getPresensiHome']);
     
     // pengumuman
     Route::get('/get-pengumuman', [PengumumanController::class, 'getPengumuman']);

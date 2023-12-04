@@ -74,6 +74,56 @@ class PresensiController extends Controller
             $masuk->settings(['formatFunction' => 'translatedFormat']);
             $item->tanggal = $datetime->format('l, j F Y');
             $item->masuk = $masuk->format('H:i');
+
+            // Tambahkan properti tanggal_real dengan nilai $item->tanggal ke dalam objek
+            $item->tanggal_real = $datetime->format('Y-m-d');
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $presensi,
+            'message' => 'Sukses menampilkan data'
+        ]);
+    }
+
+
+    public function getPresensiHome()
+    {
+        // $presensi = PresensiModel::where('user_id', Auth::user()->id)->orderBy('tanggal', 'desc')->get();
+        $startDate = now()->startOfMonth();
+        $endDate = now()->endOfMonth();
+
+        $presensi = PresensiModel::where('user_id', Auth::user()->id)
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        foreach ($presensi as $item) {
+            if ($item->tanggal == date('Y-m-d')) {
+                $item->is_hari_ini = true;
+            } else {
+                $item->is_hari_ini = false;
+            }
+
+            $datetime = Carbon::parse($item->tanggal)->locale('id');
+            $masuk = Carbon::parse($item->masuk)->locale('id');
+
+            // Cek apakah pulang null atau tidak
+            if ($item->pulang !== null) {
+                $pulang = Carbon::parse($item->pulang)->locale('id');
+                $pulang->settings(['formatFunction' => 'translatedFormat']);
+                $item->pulang = $pulang->format('H:i');
+            } else {
+                // Jika pulang null, set nilai pulang menjadi null
+                $item->pulang = null;
+            }
+
+            $datetime->settings(['formatFunction' => 'translatedFormat']);
+            $masuk->settings(['formatFunction' => 'translatedFormat']);
+            $item->tanggal = $datetime->format('l, j F Y');
+            $item->masuk = $masuk->format('H:i');
+
+            $item->tanggal_real = $datetime->format('Y-m-d');
         }
 
         return response()->json([
