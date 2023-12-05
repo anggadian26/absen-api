@@ -24,6 +24,7 @@ class PresensiModel extends Model
         'tanggal',
         'masuk',
         'pulang',
+        'flg',
         'created_at'
     ];
 }

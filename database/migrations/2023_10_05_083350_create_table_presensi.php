@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('presensi', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->decimal('latitude', 12,5);
-            $table->decimal('longitude', 12,5);
-            $table->date('tanggal');
-            $table->time('masuk');
+            $table->decimal('latitude', 12,5)->nullable();
+            $table->decimal('longitude', 12,5)->nullable();
+            $table->date('tanggal')->nullable();
+            $table->time('masuk')->nullable();
             $table->time('pulang')->nullable();
+            $table->enum('flg', ['P', 'I', 'S', 'N'])->default('P');
             $table->timestamps();
         });
     }

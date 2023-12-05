@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IjinModel;
 use App\Models\PresensiModel;
+use App\Models\SakiModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,7 +28,8 @@ class PresensiController extends Controller
                 'longitude' => $request->longitude,
                 'tanggal' => date('Y-m-d'),
                 'masuk' => date('H:i:s'),
-                'pulang' => null
+                'pulang' => null,
+                'flg'   => 'P'
             ]);
         } else {
             $data = [
@@ -50,6 +53,58 @@ class PresensiController extends Controller
     {
         $presensi = PresensiModel::where('user_id', Auth::user()->id)->orderBy('tanggal', 'desc')->get();
 
+        $user = Auth::user();
+        $yesterday = Carbon::yesterday()->toDateString();
+
+        $presensis = PresensiModel::where('user_id', $user->id)
+            ->where('tanggal', $yesterday)
+            ->first();
+
+        if (!$presensis) {
+            // Jika tidak ada absensi pada tanggal kemarin, cek ijin dan sakit
+            $ijin = IjinModel::where('user_id', $user->id)
+                ->whereDate('date_from', '<=', $yesterday)
+                ->whereDate('date_to', '>=', $yesterday)
+                ->first();
+
+            $sakit = SakiModel::where('user_id', $user->id)
+                ->whereDate('tanggal', $yesterday)
+                ->first();
+
+            if ($ijin) {
+                $presensis = PresensiModel::create([
+                    'latitude' => null,
+                    'longitude' => null,
+                    'tanggal' => $yesterday,
+                    'masuk' => null,
+                    'pulang' => null,
+                    'flg' => 'I',
+                    'user_id' => $user->id,
+                ]);
+            } else if ($sakit) {
+                $presensis = PresensiModel::create([
+                    'latitude' => null,
+                    'longitude' => null,
+                    'tanggal' => $yesterday,
+                    'masuk' => null,
+                    'pulang' => null,
+                    'flg' => 'S',
+                    'user_id' => $user->id,
+                ]);
+            } else {
+                $presensis = PresensiModel::create([
+                    'latitude' => null,
+                    'longitude' => null,
+                    'tanggal' => $yesterday,
+                    'masuk' => null,
+                    'pulang' => null,
+                    'flg' => 'N',
+                    'user_id' => $user->id,
+                ]);
+            }
+        }
+
+
         foreach ($presensi as $item) {
             if ($item->tanggal == date('Y-m-d')) {
                 $item->is_hari_ini = true;
@@ -58,7 +113,16 @@ class PresensiController extends Controller
             }
 
             $datetime = Carbon::parse($item->tanggal)->locale('id');
-            $masuk = Carbon::parse($item->masuk)->locale('id');
+
+            // Cek apakah masuk null atau tidak
+            if ($item->masuk !== null) {
+                $masuk = Carbon::parse($item->masuk)->locale('id');
+                $masuk->settings(['formatFunction' => 'translatedFormat']);
+                $item->masuk = $masuk->format('H:i');
+            } else {
+                // Jika masuk null, set nilai masuk menjadi null
+                $item->masuk = null;
+            }
 
             // Cek apakah pulang null atau tidak
             if ($item->pulang !== null) {
@@ -71,13 +135,10 @@ class PresensiController extends Controller
             }
 
             $datetime->settings(['formatFunction' => 'translatedFormat']);
-            $masuk->settings(['formatFunction' => 'translatedFormat']);
             $item->tanggal = $datetime->format('l, j F Y');
-            $item->masuk = $masuk->format('H:i');
-
-            // Tambahkan properti tanggal_real dengan nilai $item->tanggal ke dalam objek
             $item->tanggal_real = $datetime->format('Y-m-d');
         }
+
 
         return response()->json([
             'success' => true,
@@ -98,6 +159,57 @@ class PresensiController extends Controller
             ->orderBy('tanggal', 'desc')
             ->get();
 
+        $user = Auth::user();
+        $yesterday = Carbon::yesterday()->toDateString();
+
+        $presensis = PresensiModel::where('user_id', $user->id)
+            ->where('tanggal', $yesterday)
+            ->first();
+
+        if (!$presensis) {
+            // Jika tidak ada absensi pada tanggal kemarin, cek ijin dan sakit
+            $ijin = IjinModel::where('user_id', $user->id)
+                ->whereDate('date_from', '<=', $yesterday)
+                ->whereDate('date_to', '>=', $yesterday)
+                ->first();
+
+            $sakit = SakiModel::where('user_id', $user->id)
+                ->whereDate('tanggal', $yesterday)
+                ->first();
+
+            if ($ijin) {
+                $presensis = PresensiModel::create([
+                    'latitude' => null,
+                    'longitude' => null,
+                    'tanggal' => $yesterday,
+                    'masuk' => null,
+                    'pulang' => null,
+                    'flg' => 'I',
+                    'user_id' => $user->id,
+                ]);
+            } else if ($sakit) {
+                $presensis = PresensiModel::create([
+                    'latitude' => null,
+                    'longitude' => null,
+                    'tanggal' => $yesterday,
+                    'masuk' => null,
+                    'pulang' => null,
+                    'flg' => 'S',
+                    'user_id' => $user->id,
+                ]);
+            } else {
+                $presensis = PresensiModel::create([
+                    'latitude' => null,
+                    'longitude' => null,
+                    'tanggal' => $yesterday,
+                    'masuk' => null,
+                    'pulang' => null,
+                    'flg' => 'N',
+                    'user_id' => $user->id,
+                ]);
+            }
+        }
+
         foreach ($presensi as $item) {
             if ($item->tanggal == date('Y-m-d')) {
                 $item->is_hari_ini = true;
@@ -106,7 +218,7 @@ class PresensiController extends Controller
             }
 
             $datetime = Carbon::parse($item->tanggal)->locale('id');
-            $masuk = Carbon::parse($item->masuk)->locale('id');
+            // $masuk = Carbon::parse($item->masuk)->locale('id');
 
             // Cek apakah pulang null atau tidak
             if ($item->pulang !== null) {
@@ -118,10 +230,19 @@ class PresensiController extends Controller
                 $item->pulang = null;
             }
 
+            if ($item->masuk !== null) {
+                $masuk = Carbon::parse($item->masuk)->locale('id');
+                $masuk->settings(['formatFunction' => 'translatedFormat']);
+                $item->masuk = $masuk->format('H:i');
+            } else {
+                // Jika masuk null, set nilai masuk menjadi null
+                $item->masuk = null;
+            }
+
             $datetime->settings(['formatFunction' => 'translatedFormat']);
             $masuk->settings(['formatFunction' => 'translatedFormat']);
             $item->tanggal = $datetime->format('l, j F Y');
-            $item->masuk = $masuk->format('H:i');
+            // $item->masuk = $masuk->format('H:i');
 
             $item->tanggal_real = $datetime->format('Y-m-d');
         }
@@ -140,26 +261,24 @@ class PresensiController extends Controller
         $bulanTahun = $request->bulan_tahun;
         $tanggal = $request->tanggal;
 
-        $query = "
-            SELECT A.*, B.name
-            FROM presensi A
-            INNER JOIN users B ON A.user_id = B.id
-            WHERE TRUE
-        ";
+        $query = PresensiModel::query()
+            ->select('A.*', 'B.*')
+            ->from('presensi AS A')
+            ->join('users AS B', 'A.user_id', '=', 'B.id')
+            ->when($user_id, function ($query, $user_id) {
+                return $query->where('A.user_id', $user_id);
+            })
+            ->when($tanggal, function ($query, $tanggal) {
+                return $query->where('A.tanggal', $tanggal);
+            })
+            ->when($bulanTahun, function ($query, $bulanTahun) {
+                list($tahun, $bulan) = explode('-', $bulanTahun);
+                return $query->whereYear('A.tanggal', $tahun)
+                    ->whereMonth('A.tanggal', $bulan);
+            });
 
-        if ($user_id != NULL) {
-            $query .= " AND A.user_id = $user_id";
-        }
 
-        if ($tanggal != NULL) {
-            $query .= " AND A.tanggal = '$tanggal'";
-        } else if ($bulanTahun != NULL) {
-            list($tahun, $bulan) = explode('-', $bulanTahun);
-            $query .= " AND YEAR(A.tanggal) = $tahun AND MONTH(A.tanggal) = $bulan";
-        }
-        $query .= " ORDER BY A.tanggal DESC";
-
-        $presensi = DB::select($query);
+        $presensi = $query->paginate(20);
 
         $user = User::all();
         foreach ($presensi as $item) {
@@ -170,7 +289,7 @@ class PresensiController extends Controller
             }
 
             $datetime = Carbon::parse($item->tanggal)->locale('id');
-            $masuk = Carbon::parse($item->masuk)->locale('id');
+            // $masuk = Carbon::parse($item->masuk)->locale('id');
 
             // Cek apakah pulang null atau tidak
             if ($item->pulang !== null) {
@@ -182,10 +301,19 @@ class PresensiController extends Controller
                 $item->pulang = null;
             }
 
+            if ($item->masuk !== null) {
+                $masuk = Carbon::parse($item->masuk)->locale('id');
+                $masuk->settings(['formatFunction' => 'translatedFormat']);
+                $item->masuk = $masuk->format('H:i');
+            } else {
+                // Jika masuk null, set nilai masuk menjadi null
+                $item->masuk = null;
+            }
+
             $datetime->settings(['formatFunction' => 'translatedFormat']);
             $masuk->settings(['formatFunction' => 'translatedFormat']);
             $item->tanggal = $datetime->format('l, j F Y');
-            $item->masuk = $masuk->format('H:i');
+            // $item->masuk = $masuk->format('H:i');
         }
 
         return view('pages.presensi.index', compact(['presensi', 'user']));

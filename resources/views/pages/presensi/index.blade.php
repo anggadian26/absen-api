@@ -40,6 +40,7 @@
                 <th scope="col">Jam Masuk</th>
                 <th scope="col">Jam Pulang</th>
                 <th scope="col">Longitude - Latitude</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -54,8 +55,41 @@
                     <td>{{ $x->masuk }}</td>
                     <td>{{ $x->pulang }}</td>
                     <td>{{ $x->longitude }} - {{ $x->latitude }}</td>
+                    <td>
+                        @if ($x->flg == 'S')
+                            <span class="badge rounded-pill bg-warning">Sakit</span>
+                        @endif
+                        @if ($x->flg == 'I')
+                            <span class="badge rounded-pill bg-priamry">Ijin / Cuti</span>
+                        @endif
+                        @if ($x->flg == 'N')
+                            <span class="badge rounded-pill bg-danger">Absen</span>
+                        @endif
+                        @if ($x->flg == 'P')
+                            <span class="badge rounded-pill bg-info">Presensi</span>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <li class="page-item">
+                <a class="page-link" href="{{ $presensi->previousPageUrl() }}" tabindex="-1"
+                    aria-disabled="true">Previous</a>
+            </li>
+
+            @foreach (range(1, $presensi->lastPage()) as $page)
+                <li class="page-item{{ $page == $presensi->currentPage() ? ' active' : '' }}">
+                    <a class="page-link" href="{{ $presensi->url($page) }}">{{ $page }}</a>
+                </li>
+            @endforeach
+
+            <li class="page-item">
+                <a class="page-link" href="{{ $presensi->nextPageUrl() }}">Next</a>
+            </li>
+        </ul>
+        <span>Total Data {{ $presensi->total() }} </span>
+    </nav>
 @endsection

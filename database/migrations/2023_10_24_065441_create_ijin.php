@@ -19,7 +19,7 @@ return new class extends Migration
             $table->time('time_from');
             $table->date('date_to');
             $table->time('time_to');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->integer('user_id');
             $table->enum('flg', ['P', 'A', 'R']);   // P = Pending; A = Approved; R = Rejected
             $table->timestamps();
